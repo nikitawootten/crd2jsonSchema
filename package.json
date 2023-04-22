@@ -2,14 +2,27 @@
   "name": "crd2jsonschema",
   "version": "0.1.0",
   "description": "A simple utility that converts a Kubernetes CustomResourceDefinition to a JSON Schema",
-  "main": "index.js",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "bin": {
     "crd2jsonschema": "./bin/crd2jsonSchema"
   },
+  "files": [
+    "/lib",
+    "/bin"
+  ],
   "scripts": {
     "build": "tsc",
     "lint": "eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikitawootten/crd2jsonSchema"
+  },
+  "bugs": {
+    "url": "https://github.com/nikitawootten/crd2jsonSchema/issues"
   },
   "keywords": [
     "kubernetes",
