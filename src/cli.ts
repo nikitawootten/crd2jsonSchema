@@ -43,19 +43,16 @@ async function retrieveResource(ref: string): Promise<string> {
 program
     .name('crd2jsonSchema')
     .description('A simple utility that converts a Kubernetes CustomResourceDefinition to a JSON Schema')
-    .version('0.1.0')
-    .argument('<crd>', 'URI of the CRD to pull')
-    .option('-d, --doNotCorrect', 'Correct CRDs that define schemas from the root (e.g. Traefik)');
+    .version('0.2.0')
+    .argument('<crd>', 'URI of the CRD to pull');
 program.parse(process.argv);
-const options = program.opts<{
-    doNotCorrect: boolean;
-}>();
+// const options = program.opts<{}>();
 const crdRef = program.args[0];
 
 retrieveResource(crdRef)
     .then((crdString) => {
         const crd: K8sCrd = YAML.parse(crdString);
-        const schema = convert(crd, !options.doNotCorrect);
+        const schema = convert(crd);
         console.log(JSON.stringify(schema, null, 2));
     })
     .catch((err) => {

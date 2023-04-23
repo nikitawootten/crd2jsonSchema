@@ -1,6 +1,6 @@
 {
   "name": "crd2jsonschema",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A simple utility that converts a Kubernetes CustomResourceDefinition to a JSON Schema",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -14,7 +14,8 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "coverage": "jest --coverage",
     "prepare": "npm run build"
   },
   "repository": {

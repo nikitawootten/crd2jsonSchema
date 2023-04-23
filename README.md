@@ -12,6 +12,5 @@ Thankfully OpenAPIv3 gets us 95% the way there, as it uses JSON Schema to define
 ## Road-map
 
 -   [x] Transform simple `CustomResourceDefinitions`
--   [x] Fix malformed `CustomResourceDefinitions` that include the whole document (instead of from the `spec` property)
 -   [ ] Handle YAML files that contain multiple documents
 -   [ ] Create a GitHub page to store schemas for common CRDs

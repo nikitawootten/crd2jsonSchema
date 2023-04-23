@@ -1,22 +1,17 @@
 import { K8sCrd } from './crd';
 import type { JSONSchema7Definition } from 'json-schema';
 
-export default function convert(crd: K8sCrd, correctCrdSchema = false): JSONSchema7Definition {
+export default function convert(crd: K8sCrd): JSONSchema7Definition {
     // version -> schema
     const schemaVersions = crd.spec.versions.reduce<Record<string, JSONSchema7Definition>>((acc, version) => {
-        let spec = version.schema.openAPIV3Schema;
-        // Some CRDs like Traefik seem to define the schema from the root of the document instead of from the "spec" element
-        if (
-            correctCrdSchema &&
-            typeof spec === 'object' && // JSONSchema7Definition says spec could just be a boolean
-            spec.properties &&
-            // Simple heuristic to check if the schema is defined from the root
-            'apiVersion' in spec.properties &&
-            'spec' in spec.properties
-        ) {
-            spec = spec.properties.spec;
+        if (typeof version.schema.openAPIV3Schema === 'boolean') {
+            throw new Error('Cannot operate on an openAPIV3Schema that contains a single root boolean element');
         }
-        acc[`${crd.spec.group}/${version.name}`] = version.schema.openAPIV3Schema;
+        const spec = version.schema.openAPIV3Schema.properties?.spec;
+        if (spec === undefined) {
+            throw new Error('Property "spec" must be defined on the openAPIV3Schema');
+        }
+        acc[`${crd.spec.group}/${version.name}`] = spec;
         return acc;
     }, {});
 
