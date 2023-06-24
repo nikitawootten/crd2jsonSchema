@@ -1,0 +1,2 @@
+# Ignore lockfile diffs and text formatting
+flake.lock binary
