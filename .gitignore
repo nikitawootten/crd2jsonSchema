@@ -1,3 +1,5 @@
+# Direnv cache
+.direnv/
 node_modules/
 lib/
 .vscode/
